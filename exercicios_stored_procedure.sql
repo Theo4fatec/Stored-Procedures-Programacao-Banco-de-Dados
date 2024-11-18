@@ -86,3 +86,42 @@ END;
 $$
 
 CALL sp_insercao_clientes ('Cleber', 'Igor', 'Marina', 'John', 'Ramiro');
+
+
+--Exercicio 1.6
+
+--Bloco anônimo do exercicio 1.2
+DO
+$$
+BEGIN
+    CALL sp_codigo_cliente(1);
+END;
+$$
+
+--Bloco anônimo do exercicio 1.3
+DO
+$$
+DECLARE
+    v_pedidos INT;
+BEGIN
+    CALL sp_codigo_cliente_2(1, v_pedidos);
+END;
+$$
+
+--Bloco anônimo do exercicio 1.4
+DO
+$$
+DECLARE
+    cod_cliente INT := 1; 
+BEGIN
+    CALL sp_clientes_pedidos_total(cod_cliente);
+END;
+$$
+
+--Bloco anônimo do exercicio 1.5
+DO
+$$
+BEGIN
+    CALL sp_insercao_clientes ('Cleber', 'Igor', 'Marina', 'John', 'Ramiro');
+END;
+$$
