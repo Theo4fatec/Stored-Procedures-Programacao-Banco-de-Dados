@@ -24,3 +24,26 @@ END;
 $$
 
 CALL sp_codigo_cliente(1);
+
+
+--Exercicio 1.3
+CREATE OR REPLACE PROCEDURE sp_codigo_cliente_2 (IN p_cod_cliente INT, OUT v_pedidos INT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    SELECT COUNT(*) INTO v_pedidos FROM tb_pedido WHERE cod_cliente = p_cod_cliente;
+    RAISE NOTICE 'O cliente % possui % pedidos', p_cod_cliente, v_pedidos;
+
+    INSERT INTO tb_log_restaurante (data_operacao, nome_log) VALUES (CURRENT_TIMESTAMP, 'sp_codigo_cliente_2');
+END;
+$$
+
+DO
+$$
+DECLARE
+    v_pedidos INT;
+BEGIN
+    CALL sp_codigo_cliente_2(1, v_pedidos);
+END;
+$$
+
