@@ -66,3 +66,23 @@ $$
 CALL sp_clientes_pedidos_total(1);
 
 
+--Exercicio 1.5
+CREATE OR REPLACE PROCEDURE sp_insercao_clientes (VARIADIC nomes_pessoas text [])
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    i TEXT;
+    nomes_armazenados TEXT := '';
+BEGIN
+    FOREACH i IN ARRAY nomes_pessoas LOOP 
+        INSERT INTO tb_cliente (nome) VALUES (i);
+        nomes_armazenados := nomes_armazenados || i || ', ';
+    END LOOP;
+    RAISE NOTICE 'Os clientes: % foram cadastrados', nomes_armazenados;
+
+    INSERT INTO tb_log_restaurante (data_operacao, nome_log) VALUES (CURRENT_TIMESTAMP, 'sp_insercao_clientes');
+    
+END;
+$$
+
+CALL sp_insercao_clientes ('Cleber', 'Igor', 'Marina', 'John', 'Ramiro');
